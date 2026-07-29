@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Pharma Digest - 약업계 일간 이슈 리포트</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Google Fonts (Noto Sans KR & Serif) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Noto+Serif+KR:wght@600;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            beige: '#FAF6EE',
+                            cardBeige: '#F3EDE0',
+                            navy: '#1E3A8A',
+                            accentBlue: '#2563EB',
+                            lightBlue: '#EFF6FF',
+                            borderBlue: '#BFDBFE',
+                            textDark: '#1E293B',
+                            textMuted: '#64748B'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Noto Sans KR', 'sans-serif'],
+                        serif: ['Noto Serif KR', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #FAF6EE;
+            color: #1E293B;
+        }
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        .accordion-content.open {
+            max-height: 1000px;
+            transition: max-height 0.5s ease-in;
+        }
+    </style>
+</head>
+<body class="font-sans min-h-screen flex flex-col justify-between">
+
+    <!-- Header Navigation -->
+    <header class="bg-brand-navy text-white sticky top-0 z-50 shadow-md">
+        <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div class="bg-brand-accentBlue text-white p-2 rounded-lg text-lg font-bold">
+                    <i class="fa-solid fa-capsules"></i>
+                </div>
+                <div>
+                    <h1 class="font-serif font-bold text-xl tracking-tight text-amber-100">Daily Pharma Digest</h1>
+                    <p class="text-xs text-blue-200">약대생 & 약업계를 위한 하루 1개 필수 이슈</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-3">
+                <span class="text-xs bg-blue-900 border border-blue-700 px-3 py-1 rounded-full text-blue-200">
+                    <i class="fa-regular fa-calendar-check mr-1"></i> <span id="current-date">2026.07.28 (화)</span>
+                </span>
+                <button onclick="toggleBookmarkModal()" class="text-amber-200 hover:text-white p-2 text-sm flex items-center gap-1">
+                    <i class="fa-solid fa-bookmark text-amber-300"></i>
+                    <span id="bookmark-count" class="text-xs bg-amber-400 text-brand-navy px-1.5 py-0.5 rounded-full font-bold">1</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="max-w-4xl mx-auto px-4 py-6 flex-grow w-full">
+
+        <!-- Top Banner / Notice -->
+        <div class="bg-brand-cardBeige border border-amber-200 rounded-xl p-4 mb-6 flex items-start gap-3 shadow-sm">
+            <i class="fa-solid fa-circle-info text-brand-accentBlue text-lg mt-0.5"></i>
+            <div class="text-xs text-brand-textDark leading-relaxed">
+                <span class="font-bold text-brand-navy">오늘의 요약 안내:</span> 매일 아침 약사공론 등 주요 매체의 최신 단독 이슈를 분석합니다. 기사 단건으로 이해하기 힘든 <strong>법률 용어</strong>와 <strong>이해관계자 맥락</strong>까지 한 화면에서 확인하세요.
+            </div>
+        </div>
+
+        <!-- HERO SECTION: Today's Main Issue -->
+        <section class="bg-white border-2 border-brand-borderBlue rounded-2xl shadow-lg p-6 mb-8">
+            <!-- Category & Source -->
+            <div class="flex justify-between items-center mb-3">
+                <div class="flex items-center gap-2">
+                    <span class="bg-brand-navy text-white text-xs font-bold px-3 py-1 rounded-md">
+                        [제도/정책]
+                    </span>
+                    <span class="bg-blue-100 text-brand-accentBlue text-xs font-medium px-2.5 py-1 rounded-md">
+                        약사공론 메인
+                    </span>
+                </div>
+                <button onclick="toggleBookmark('main-issue')" id="bookmark-btn" class="text-slate-400 hover:text-amber-500 transition-colors">
+                    <i class="fa-solid fa-bookmark text-xl"></i>
+                </button>
+            </div>
+
+            <!-- Issue Title -->
+            <h2 class="font-serif text-2xl md:text-3xl font-bold text-brand-navy mb-4 leading-snug">
+                안전상비의약품 품목 확대 및 24시간 운영 규제 완화 추진 논란
+            </h2>
+
+            <!-- Sub Information Box -->
+            <div class="bg-brand-lightBlue border-l-4 border-brand-accentBlue p-3 rounded-r-lg mb-6 text-xs text-slate-700 flex flex-wrap justify-between gap-2">
+                <div><strong>출처:</strong> 약사공론 종합뉴스 | <strong>관련 기관:</strong> 보건복지부, 대한약사회</div>
+                <div><strong>읽는 시간:</strong> 약 3분 소요</div>
+            </div>
+
+            <!-- 5-Line Summary Section -->
+            <div class="mb-6">
+                <h3 class="text-sm font-bold text-brand-navy uppercase tracking-wider mb-3 flex items-center gap-2">
+                    <i class="fa-solid fa-list-check text-brand-accentBlue"></i> 5줄 핵심 요약
+                </h3>
+                <ul class="space-y-2.5 text-sm text-slate-800 leading-relaxed bg-brand-beige p-4 rounded-xl border border-amber-200">
+                    <li class="flex items-start gap-2">
+                        <span class="bg-brand-navy text-white text-xs rounded-full w-5 h-5 flex items-center justify-center flex-shrink-0 mt-0.5">1</span>
+                        <span>보건복지부가 현행 13개인 안전상비의약품 품목을 최대 20개까지 확대하는 방안을 국정과제로 추진 중입니다.</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <span class="bg-brand-navy text-white text-xs rounded-full w-5 h-5 flex items-center justify-center flex-shrink-0 mt-0.5">2</span>
+                        <span>국회 개정 없이 장관 고시만으로 지사제·제산제 등을 추가하려 해 절차적 위헌 논란이 일고 있습니다.</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <span class="bg-brand-navy text-white text-xs rounded-full w-5 h-5 flex items-center justify-center flex-shrink-0 mt-0.5">3</span>
+                        <span>판매처 자격 역시 기존 '24시간 연중무휴'에서 의료 취약지 소매점 완화로 규칙 개정을 병행합니다.</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <span class="bg-brand-navy text-white text-xs rounded-full w-5 h-5 flex items-center justify-center flex-shrink-0 mt-0.5">4</span>
+                        <span>약사회는 편의점 업소의 관리 위반율(97%)이 높은 상황에서 국민 건강 안전성 부재를 이유로 강력 반발합니다.</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <span class="bg-brand-navy text-white text-xs rounded-full w-5 h-5 flex items-center justify-center flex-shrink-0 mt-0.5">5</span>
+                        <span>약사회 비대위는 고시 개정 효력정지 가처분 신청 및 대규모 입법 저지 투쟁을 예고했습니다.</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Expandable Accordion 1: Pharmacy Vocabulary Glossary -->
+            <div class="border border-blue-200 rounded-xl mb-4 overflow-hidden bg-white">
+                <button onclick="toggleAccordion('glossary-content', 'glossary-icon')" class="w-full bg-blue-50/70 hover:bg-blue-100 p-4 text-left font-bold text-brand-navy flex justify-between items-center text-sm">
+                    <span class="flex items-center gap-2">
+                        <i class="fa-solid fa-book-medical text-brand-accentBlue"></i> 💡 약대생 필수 용어 해설 (3개)
+                    </span>
+                    <i id="glossary-icon" class="fa-solid fa-chevron-down transition-transform"></i>
+                </button>
+                <div id="glossary-content" class="accordion-content">
+                    <div class="p-4 space-y-3 text-xs border-t border-blue-100 bg-white">
+                        <div class="bg-brand-beige p-3 rounded-lg border border-amber-200">
+                            <span class="font-bold text-brand-navy text-sm block mb-1">1. 장관 고시 개정</span>
+                            <p class="text-slate-700 leading-relaxed">국회 본회의 표결을 거쳐야 하는 '약사법 개정'과 달리, 보건복지부 장관의 권한으로 행정 규칙을 바꾸는 절차입니다. 국회 검토를 거치지 않아 신속하지만 입법권 침해 논란이 자주 발생합니다.</p>
+                        </div>
+                        <div class="bg-brand-beige p-3 rounded-lg border border-amber-200">
+                            <span class="font-bold text-brand-navy text-sm block mb-1">2. 안전상비의약품 (2012년 도입)</span>
+                            <p class="text-slate-700 leading-relaxed">가벼운 증상에 환자 스스로 판단하여 사용하는 의약품으로, 편의점 등 24시간 업소에서 판매 가능합니다. (현재 타이레놀, 판콜에이, 훼스탈 등 13개 품목)</p>
+                        </div>
+                        <div class="bg-brand-beige p-3 rounded-lg border border-amber-200">
+                            <span class="font-bold text-brand-navy text-sm block mb-1">3. 스멕타이트(Smectite) 제제</span>
+                            <p class="text-slate-700 leading-relaxed">대표적인 흡착성 지사제입니다. 미량의 중금속 오염 가능성 이슈로 유소아 투여 제한 조치가 내려진 바 있어, 일반 편의점 판매 시 오남용 우려가 큰 약물로 분류됩니다.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Expandable Accordion 2: Context & Stakeholder Views -->
+            <div class="border border-blue-200 rounded-xl mb-6 overflow-hidden bg-white">
+                <button onclick="toggleAccordion('context-content', 'context-icon')" class="w-full bg-blue-50/70 hover:bg-blue-100 p-4 text-left font-bold text-brand-navy flex justify-between items-center text-sm">
+                    <span class="flex items-center gap-2">
+                        <i class="fa-solid fa-sitemap text-brand-accentBlue"></i> 🔍 3분 입체적 맥락 (타임라인 & 이해관계)
+                    </span>
+                    <i id="context-icon" class="fa-solid fa-chevron-down transition-transform"></i>
+                </button>
+                <div id="context-content" class="accordion-content">
+                    <div class="p-4 space-y-4 text-xs border-t border-blue-100">
+                        <!-- Timeline -->
+                        <div>
+                            <h4 class="font-bold text-brand-navy mb-2 flex items-center gap-1">
+                                <i class="fa-solid fa-clock-rotate-left text-amber-600"></i> 사건 타임라인
+                            </h4>
+                            <div class="relative border-l-2 border-blue-300 ml-2 pl-4 space-y-2 py-1">
+                                <div><strong class="text-brand-navy">2012년:</strong> 약사법 개정으로 편의점 안전상비약 13종 제도 최초 시행</div>
+                                <div><strong class="text-brand-navy">2026년 3월:</strong> 정부, 국민 접근성 제고 이유로 안전상비약 품목 조정위 재가동 발표</div>
+                                <div><strong class="text-brand-navy">오늘:</strong> 복지부 고시 개정 추진 수립 $\rightarrow$ 대한약사회 긴급 비대위 결성</div>
+                            </div>
+                        </div>
+
+                        <!-- Stakeholders Comparison Table -->
+                        <div>
+                            <h4 class="font-bold text-brand-navy mb-2 flex items-center gap-1">
+                                <i class="fa-solid fa-scale-balanced text-amber-600"></i> 핵심 이해관계자 입장 비교
+                            </h4>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                                <div class="bg-blue-50 p-3 rounded-lg border border-blue-200">
+                                    <span class="font-bold text-brand-accentBlue block mb-1">🏛️ 보건복지부 (정부)</span>
+                                    <p class="text-slate-700 leading-relaxed">"심야·휴일 의약품 구매 불편 해소가 최우선. 안전성이 입증된 지사제·제산제 위주로 접근성 확대 필요."</p>
+                                </div>
+                                <div class="bg-amber-50 p-3 rounded-lg border border-amber-200">
+                                    <span class="font-bold text-amber-800 block mb-1">💊 대한약사회 (약사업계)</span>
+                                    <p class="text-slate-700 leading-relaxed">"편의점 수량 제한 미준수 등 관리 부실률이 97%에 달함. 접근성보다 국민의 약물 오남용 안전이 우선."</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action & Reference Links -->
+            <div class="pt-4 border-t border-slate-100 flex flex-wrap gap-3 justify-between items-center">
+                <a href="https://www.kpanews.co.kr" target="_blank" class="inline-flex items-center gap-2 text-xs font-bold bg-brand-navy text-white px-4 py-2.5 rounded-lg hover:bg-blue-900 transition-colors">
+                    <span>약사공론 원문 기사 읽기</span>
+                    <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+                </a>
+                <div class="flex items-center gap-2">
+                    <button onclick="shareArticle()" class="text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-2 rounded-lg transition-colors flex items-center gap-1">
+                        <i class="fa-solid fa-share-nodes"></i> 공유하기
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ARCHIVE SECTION: Past Issues -->
+        <section class="mb-10">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="font-serif font-bold text-xl text-brand-navy flex items-center gap-2">
+                    <i class="fa-solid fa-box-archive text-brand-accentBlue"></i> 지난 약업계 이슈 아카이브
+                </h3>
+                <span class="text-xs text-slate-500">최신순 정렬</span>
+            </div>
+
+            <!-- Search and Filter Bar -->
+            <div class="flex flex-col sm:flex-row gap-2 mb-4">
+                <div class="relative flex-grow">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3 top-3 text-slate-400 text-sm"></i>
+                    <input type="text" id="search-input" onkeyup="filterArchive()" placeholder="이슈 키워드 또는 용어 검색 (예: 한약사, 신약, 수가)" class="w-full pl-9 pr-4 py-2 bg-white border border-amber-200 rounded-lg text-xs focus:outline-none focus:ring-2 focus:ring-brand-accentBlue">
+                </div>
+                <select id="category-filter" onchange="filterArchive()" class="bg-white border border-amber-200 rounded-lg text-xs px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand-accentBlue">
+                    <option value="all">전체 카테고리</option>
+                    <option value="제도">제도/정책</option>
+                    <option value="경영">약국경영</option>
+                    <option value="제약">제약/임상</option>
+                </select>
+            </div>
+
+            <!-- Archive Cards Grid -->
+            <div id="archive-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- Archive Item 1 -->
+                <div class="archive-card bg-white p-4 rounded-xl border border-amber-200 hover:border-brand-accentBlue transition-all shadow-sm flex flex-col justify-between" data-category="제도" data-title="한약사 면허범위 교차 처방 관련 복지부 유권해석 개정">
+                    <div>
+                        <div class="flex justify-between text-xs text-slate-500 mb-2">
+                            <span class="bg-blue-100 text-brand-accentBlue px-2 py-0.5 rounded font-bold">제도/정책</span>
+                            <span>2026.07.27</span>
+                        </div>
+                        <h4 class="font-bold text-sm text-brand-navy mb-2 line-clamp-2">한약사 면허범위 교차 처방 관련 복지부 유권해석 개정안 발표</h4>
+                        <p class="text-xs text-slate-600 line-clamp-2 mb-3">한약국의 일반의약품 취급 품목 제한 법안 마련 시도와 이에 따른 양측 직능 단체 간 갈등 심화...</p>
+                    </div>
+                    <div class="pt-2 border-t border-slate-100 flex justify-between items-center text-xs">
+                        <span class="text-amber-700 bg-amber-50 px-2 py-0.5 rounded">핵심용어: 면허 교차범위</span>
+                        <button onclick="alert('이전 기사 상세보기 모달 구현 공간입니다.')" class="text-brand-accentBlue font-bold hover:underline">보기</button>
+                    </div>
+                </div>
+
+                <!-- Archive Item 2 -->
+                <div class="archive-card bg-white p-4 rounded-xl border border-amber-200 hover:border-brand-accentBlue transition-all shadow-sm flex flex-col justify-between" data-category="경영" data-title="2027년도 요양급여비용 수가협상 타결 환산지수 차등 적용">
+                    <div>
+                        <div class="flex justify-between text-xs text-slate-500 mb-2">
+                            <span class="bg-amber-100 text-amber-800 px-2 py-0.5 rounded font-bold">약국경영</span>
+                            <span>2026.07.26</span>
+                        </div>
+                        <h4 class="font-bold text-sm text-brand-navy mb-2 line-clamp-2">2027년도 약국 수가협상 타결: 행위료 인상률 1.7% 확정</h4>
+                        <p class="text-xs text-slate-600 line-clamp-2 mb-3">조제수가 체계 개편 및 처방전 건수 구간별 차등 수가 가산율 변경에 따른 약국 수입 변화 분석...</p>
+                    </div>
+                    <div class="pt-2 border-t border-slate-100 flex justify-between items-center text-xs">
+                        <span class="text-amber-700 bg-amber-50 px-2 py-0.5 rounded">핵심용어: 환산지수, 조제료</span>
+                        <button onclick="alert('이전 기사 상세보기 모달 구현 공간입니다.')" class="text-brand-accentBlue font-bold hover:underline">보기</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Implementation / Automation Guide Tab -->
+        <section class="bg-brand-cardBeige border border-amber-300 rounded-2xl p-6 shadow-sm mb-6">
+            <h3 class="font-serif font-bold text-lg text-brand-navy mb-2 flex items-center gap-2">
+                <i class="fa-solid fa-code text-brand-accentBlue"></i> 매일 자동 업데이트 연동 가이드
+            </h3>
+            <p class="text-xs text-slate-700 mb-4 leading-relaxed">
+                현재 보시는 화면은 프론트엔드 모듈입니다. 이 플랫폼을 매일 자동으로 업데이트하려면 아래 <strong>무료 백엔드(Supabase)</strong>를 연결하면 됩니다.
+            </p>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+                <div class="bg-white p-3 rounded-xl border border-amber-200">
+                    <div class="font-bold text-brand-navy mb-1">1. Supabase 연동</div>
+                    <div class="text-slate-600">무료 PostgreSQL DB 생성 후 API Key를 웹앱에 연결합니다.</div>
+                </div>
+                <div class="bg-white p-3 rounded-xl border border-amber-200">
+                    <div class="font-bold text-brand-navy mb-1">2. AI 자동 요약 API</div>
+                    <div class="text-slate-600">Gemini API로 기사 URL 입력 시 5줄 요약+용어 자동 생성을 구축합니다.</div>
+                </div>
+                <div class="bg-white p-3 rounded-xl border border-amber-200">
+                    <div class="font-bold text-brand-navy mb-1">3. Vercel 배포</div>
+                    <div class="text-slate-600">GitHub 저장소 연동 후 나만의 도메인(.com 또는 .kr)을 연결합니다.</div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Bookmark Modal -->
+    <div id="bookmark-modal" class="fixed inset-0 bg-black/50 hidden z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 border-2 border-brand-navy shadow-2xl">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="font-serif font-bold text-lg text-brand-navy flex items-center gap-2">
+                    <i class="fa-solid fa-bookmark text-amber-500"></i> 보관한 이슈 목록
+                </h3>
+                <button onclick="toggleBookmarkModal()" class="text-slate-400 hover:text-slate-600">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+            <div class="space-y-3 max-h-60 overflow-y-auto mb-4 text-xs">
+                <div class="p-3 bg-brand-beige rounded-lg border border-amber-200 flex justify-between items-center">
+                    <div>
+                        <span class="text-xs text-brand-accentBlue font-bold">[제도/정책]</span>
+                        <div class="font-bold text-slate-800">안전상비의약품 품목 확대 논란</div>
+                    </div>
+                    <button onclick="alert('보관함에서 삭제되었습니다.')" class="text-red-500 hover:text-red-700">
+                        <i class="fa-solid fa-trash-can"></i>
+                    </button>
+                </div>
+            </div>
+            <button onclick="toggleBookmarkModal()" class="w-full bg-brand-navy text-white text-xs py-2.5 rounded-lg font-bold">닫기</button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-brand-navy text-blue-200 text-xs py-6 border-t border-blue-900">
+        <div class="max-w-4xl mx-auto px-4 text-center space-y-2">
+            <p class="font-serif text-amber-100 text-sm">Daily Pharma Digest</p>
+            <p>약사공론 및 약업계 주요 매체 헤드라인 데일리 요약 서비스</p>
+            <p class="text-blue-400">© 2026 Daily Pharma Digest. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Interactive JavaScript -->
+    <script>
+        // Set Current Date dynamically
+        document.addEventListener('DOMContentLoaded', () => {
+            const now = new Date();
+            const days = ['일', '월', '화', '수', '목', '금', '토'];
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const date = String(now.getDate()).padStart(2, '0');
+            const dayName = days[now.getDay()];
+            document.getElementById('current-date').innerText = `${year}.${month}.${date} (${dayName})`;
+        });
+
+        // Accordion Toggle Logic
+        function toggleAccordion(contentId, iconId) {
+            const content = document.getElementById(contentId);
+            const icon = document.getElementById(iconId);
+            
+            if (content.classList.contains('open')) {
+                content.classList.remove('open');
+                icon.style.transform = 'rotate(0deg)';
+            } else {
+                content.classList.add('open');
+                icon.style.transform = 'rotate(180deg)';
+            }
+        }
+
+        // Bookmark Toggle Logic
+        let isBookmarked = true;
+        function toggleBookmark(articleId) {
+            const btn = document.getElementById('bookmark-btn');
+            const count = document.getElementById('bookmark-count');
+            isBookmarked = !isBookmarked;
+            
+            if (isBookmarked) {
+                btn.classList.add('text-amber-500');
+                btn.classList.remove('text-slate-400');
+                count.innerText = "1";
+                alert("북마크에 추가되었습니다.");
+            } else {
+                btn.classList.remove('text-amber-500');
+                btn.classList.add('text-slate-400');
+                count.innerText = "0";
+                alert("북마크가 해제되었습니다.");
+            }
+        }
+
+        // Bookmark Modal Toggle
+        function toggleBookmarkModal() {
+            const modal = document.getElementById('bookmark-modal');
+            modal.classList.toggle('hidden');
+        }
+
+        // Share Link Function
+        function shareArticle() {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Daily Pharma Digest - 오늘의 약업계 이슈',
+                    text: '안전상비의약품 품목 확대 및 24시간 규제 완화 추진 논란',
+                    url: window.location.href,
+                });
+            } else {
+                navigator.clipboard.writeText(window.location.href);
+                alert('웹앱 주소가 클립보드에 복사되었습니다!');
+            }
+        }
+
+        // Archive Search and Filter Function
+        function filterArchive() {
+            const query = document.getElementById('search-input').value.toLowerCase();
+            const category = document.getElementById('category-filter').value;
+            const cards = document.querySelectorAll('.archive-card');
+
+            cards.forEach(card => {
+                const title = card.getAttribute('data-title').toLowerCase();
+                const cardCategory = card.getAttribute('data-category');
+
+                const matchesQuery = title.includes(query);
+                const matchesCategory = (category === 'all' || cardCategory === category);
+
+                if (matchesQuery && matchesCategory) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>
+```eof
+
+---
+
+### 생성된 웹앱의 핵심 구현 요소
+1. **베이지 & 네이비 블루 톤앤매너:** Warm Beige 배경(`#FAF6EE`)과 Deep Navy Blue(`#1E3A8A`)가 조화를 이루어 전문적이면서 눈이 편안한 디자인을 선사합니다.
+2. **5줄 핵심 요약 시스템:** 가장 중요한 5가지 포인트가 번호순 카드로 선명하게 표출됩니다.
+3. **약대생 필수 용어 해설 (접이식 아코디언):** 장관 고시 개정, 안전상비약 등 기사 단건만으로는 알기 힘든 주요 법률/약학 용어를 클릭 한 번으로 볼 수 있습니다.
+4. **3분 입체적 맥락 (타임라인 & 이해관계):** 보건복지부 대 약사회의 입장 차이와 과거 경과 타임라인을 한눈에 비교 분석할 수 있습니다.
+5. **검색 및 아카이브 기능:** 이전 날짜의 이슈를 카테고리별로 필터링하고 검색할 수 있습니다.
+
+추가하고 싶은 기능이나 보완하고 싶은 디자인 디테일이 있다면 언제든 말씀해 주세요!

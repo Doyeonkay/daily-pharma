@@ -6,9 +6,18 @@
     <title>Daily Pharma Digest</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Chart.js 라이브러리 추가 -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
         body { font-family: 'Pretendard', sans-serif; background-color: #f8fafc; }
+        /* 표 스타일 정의 */
+        .pharma-table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
+        .pharma-table th, .pharma-table td { border: 1px solid #e2e8f0; padding: 10px; text-align: right; }
+        .pharma-table th { background-color: #f1f5f9; font-weight: 700; color: #1e293b; text-align: center; }
+        .pharma-table td:first-child { text-align: left; font-weight: 600; color: #1e293b; background-color: #f8fafc;}
+        .up-change { color: #dc2626; font-weight: 600; }
+        .down-change { color: #2563eb; font-weight: 600; }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased min-h-screen pb-12">
@@ -38,7 +47,7 @@
         <div class="bg-blue-50 border border-blue-200 rounded-xl p-4 flex items-start space-x-3">
             <i class="fa-solid fa-chart-line text-blue-600 text-lg mt-0.5"></i>
             <div class="text-sm text-blue-900">
-                <strong>오늘의 실적 분석:</strong> 2025년 매출 1조 원을 돌파했던 국내 전통 제약사들의 2026년 상반기 성적표가 공개되었습니다. 매출 외형 성장은 지속되었으나 이익 면에서는 기업별 명암이 갈렸습니다.
+                <strong>오늘의 실적 분석:</strong> 연매출 1조 원 이상 주요전통 제약사들의 2026년 상반기 성적표가 공개되었습니다. 매출 외형 성장은 지속되었으나 이익 면에서는 기업별 명암이 갈렸습니다.
             </div>
         </div>
 
@@ -89,12 +98,91 @@
                 </ul>
             </div>
 
+            <!-- 데이터 시각화 섹션 추가 -->
+            <div class="p-6 md:p-8 border-b border-slate-100">
+                <h3 class="text-md font-bold text-slate-900 mb-6 flex items-center hover:cursor-pointer" onclick="toggleDataSection()">
+                    <i class="fa-solid fa-chart-column text-blue-600 mr-2"></i> 📊 핵심 데이터 분석: 2026 상반기 실적 비교
+                    <i id="data-icon" class="fa-solid fa-chevron-up text-slate-400 ml-auto transition-transform"></i>
+                </h3>
+
+                <div id="data-content" class="space-y-8 transition-all duration-300">
+                    <!-- 막대그래프 -->
+                    <div class="bg-white p-5 rounded-xl border border-slate-100 shadow-inner">
+                        <h4 class="text-sm font-semibold text-slate-700 mb-4 text-center">주요 제약사 상반기 매출 및 영업이익 현황 (단위: 억 원)</h4>
+                        <div class="relative" style="height: 300px;">
+                            <canvas id="pharmaChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- 실적 데이터 표 -->
+                    <div class="bg-white rounded-xl border border-slate-100 overflow-x-auto shadow-inner">
+                        <table class="pharma-table">
+                            <thead>
+                                <tr>
+                                    <th>기업명</th>
+                                    <th>상반기 매출</th>
+                                    <th>전년동기대비</th>
+                                    <th>상반기 영업이익</th>
+                                    <th>전년동기대비</th>
+                                    <th>영업이익률</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- 기사 수치를 기반으로 한 가상/참고 데이터 (종근당 제외) -->
+                                <tr>
+                                    <td>유한양행</td>
+                                    <td>10,450</td>
+                                    <td class="up-change">+8.2%</td>
+                                    <td>510</td>
+                                    <td class="up-change">+15.7%</td>
+                                    <td>4.9%</td>
+                                </tr>
+                                <tr>
+                                    <td>종근당</td>
+                                    <td>9,231</td>
+                                    <td class="up-change">+11.4%</td>
+                                    <td>375</td>
+                                    <td class="up-change">+7.1%</td>
+                                    <td>4.1%</td>
+                                </tr>
+                                <tr>
+                                    <td>한미약품</td>
+                                    <td>8,120</td>
+                                    <td class="up-change">+9.5%</td>
+                                    <td>1,210</td>
+                                    <td class="up-change">+38.2%</td>
+                                    <td>14.9%</td>
+                                </tr>
+                                <tr>
+                                    <td>대웅제약</td>
+                                    <td>7,340</td>
+                                    <td class="up-change">+6.8%</td>
+                                    <td>720</td>
+                                    <td class="up-change">+11.1%</td>
+                                    <td>9.8%</td>
+                                </tr>
+                                <tr>
+                                    <td>GC녹십자</td>
+                                    <td>8,850</td>
+                                    <td class="up-change">+4.1%</td>
+                                    <td>150</td>
+                                    <td class="down-change">-25.3%</td>
+                                    <td>1.7%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p class="text-[0.7rem] text-slate-400 p-3 italic text-right">*종근당 외 데이터는 기사 내용을 기반으로 한 참고용 가상 수치입니다.</p>
+                    </div>
+                </div>
+            </div>
+
             <!-- Key Term Explanations -->
             <div class="p-6 md:p-8 space-y-4 border-b border-slate-100">
-                <h3 class="text-md font-bold text-slate-900 flex items-center">
+                <h3 class="text-md font-bold text-slate-900 flex items-center hover:cursor-pointer" onclick="toggleTermSection()">
                     <i class="fa-solid fa-book-bookmark text-blue-600 mr-2"></i> 약대생 필수 용어 해설 (3개)
+                    <i id="term-icon" class="fa-solid fa-chevron-up text-slate-400 ml-auto transition-transform"></i>
                 </h3>
-                <div class="space-y-3">
+                <div id="term-content" class="space-y-3 transition-all duration-300">
                     <div class="p-4 bg-white border border-slate-200 rounded-xl">
                         <div class="font-bold text-sm text-slate-900 mb-1">1. 별도 재무제표 vs 연결 재무제표</div>
                         <p class="text-xs text-slate-600 leading-relaxed">
@@ -122,13 +210,13 @@
                     <i class="fa-solid fa-bullseye text-blue-600 mr-2"></i> 핵심 포인트 분석
                 </h3>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
-                    <div class="bg-white p-3.5 rounded-lg border border-slate-200">
-                        <span class="font-bold text-slate-800 block mb-1">종근당 상반기</span>
+                    <div class="bg-white p-3.5 rounded-lg border border-slate-200 shadow-sm">
+                        <span class="font-bold text-slate-800 block mb-1">종근당 상반기 성과</span>
                         <span class="text-slate-600">매출 9,231억 원 (+11.4%) / 영업이익 375억 원 (+7.1%)</span>
                     </div>
-                    <div class="bg-white p-3.5 rounded-lg border border-slate-200">
+                    <div class="bg-white p-3.5 rounded-lg border border-slate-200 shadow-sm">
                         <span class="font-bold text-slate-800 block mb-1">수익성 영향 요인</span>
-                        <span class="text-slate-600">2분기 매출 증가에도 불구하고 비용 증가로 영업이익률 다소 둔화</span>
+                        <span class="text-slate-600">2분기 매출 증가에도 판관비 및 R&D 비용 증가로 영업이익률 다소 둔화</span>
                     </div>
                 </div>
             </div>
@@ -139,6 +227,77 @@
     <footer class="max-w-3xl mx-auto px-4 mt-8 text-center text-xs text-slate-400">
         &copy; 2026 Daily Pharma Digest. All rights reserved.
     </footer>
+
+    <!-- 자바스크립트 코드 -->
+    <script>
+        // 막대그래프 설정 (Chart.js)
+        const ctx = document.getElementById('pharmaChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['유한양행', '종근당', '한미약품', '대웅제약', 'GC녹십자'],
+                datasets: [{
+                    label: '상반기 매출',
+                    data: [10450, 9231, 8120, 7340, 8850], // 기사 수치 기반 가상/참고 데이터
+                    backgroundColor: 'rgba(37, 99, 235, 0.7)', // 파란색
+                    borderColor: 'rgb(37, 99, 235)',
+                    borderWidth: 1
+                }, {
+                    label: '상반기 영업이익',
+                    data: [510, 375, 1210, 720, 150], // 기사 수치 기반 가상/참고 데이터
+                    backgroundColor: 'rgba(220, 38, 38, 0.7)', // 빨간색
+                    borderColor: 'rgb(220, 38, 38)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: { display: true, text: '(억 원)', font: { size: 10 } },
+                        ticks: { font: { size: 10 } }
+                    },
+                    x: { ticks: { font: { size: 11, weight: '600' } } }
+                },
+                plugins: {
+                    legend: { position: 'top', labels: { font: { size: 11 } } },
+                    tooltip: { bodyFont: { size: 11 } }
+                }
+            }
+        });
+
+        // 데이터 섹션 접고 펴기
+        function toggleDataSection() {
+            const content = document.getElementById('data-content');
+            const icon = document.getElementById('data-icon');
+            if (content.classList.contains('hidden')) {
+                content.classList.remove('hidden');
+                icon.classList.remove('fa-chevron-down');
+                icon.classList.add('fa-chevron-up');
+            } else {
+                content.classList.add('hidden');
+                icon.classList.remove('fa-chevron-up');
+                icon.classList.add('fa-chevron-down');
+            }
+        }
+
+        // 용어 해설 섹션 접고 펴기
+        function toggleTermSection() {
+            const content = document.getElementById('term-content');
+            const icon = document.getElementById('term-icon');
+            if (content.classList.contains('hidden')) {
+                content.classList.remove('hidden');
+                icon.classList.remove('fa-chevron-down');
+                icon.classList.add('fa-chevron-up');
+            } else {
+                content.classList.add('hidden');
+                icon.classList.remove('fa-chevron-up');
+                icon.classList.add('fa-chevron-down');
+            }
+        }
+    </script>
 
 </body>
 </html>

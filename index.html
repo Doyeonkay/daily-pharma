@@ -190,15 +190,22 @@
 
     <!-- 자바스크립트 코드 -->
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        // 카카오 SDK 초기화 함수 (필요 시 자동 실행)
+        function initKakao() {
             if (window.Kakao && !window.Kakao.isInitialized()) {
                 window.Kakao.init('fe0d07998c40e155fe9129b0d32793fa');
             }
-        });
+        }
+
+        // 페이지 로드 시 1차 초기화
+        initKakao();
 
         async function shareKakaoTable() {
+            // 버튼 클릭 시점에 2차 초기화 점검 (안전장치)
+            initKakao();
+
             if (!window.Kakao || !window.Kakao.isInitialized()) {
-                alert("카카오 SDK가 초기화되지 않았습니다.");
+                alert("카카오 SDK를 연결하지 못했습니다. 페이지를 새로고침 후 다시 시도해주세요.");
                 return;
             }
 
@@ -226,7 +233,7 @@
                     const file = new File([blob], 'table.png', { type: 'image/png' });
 
                     try {
-                        // 3. 카카오 서버에 캡처 파일 업로드 (v2 SDK 표준)
+                        // 3. 카카오 서버에 캡처 파일 업로드
                         const res = await window.Kakao.Share.uploadImage({
                             file: [file]
                         });

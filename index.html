@@ -189,35 +189,72 @@
     <script>
     document.addEventListener('DOMContentLoaded', function() {
         if (window.Kakao && !window.Kakao.isInitialized()) {
-            // 👇 새로 도메인이 연결된 새 키 값으로 변경!
             window.Kakao.init('fe0d07998c40e155fe9129b0d32793fa');
         }
     });
 
-        function shareKakaoTable() {
-            Kakao.Share.sendDefault({
-                objectType: 'feed',
-                content: {
-                    title: '오늘의 약학계 이슈',
-                    description: '📊 비대면진료 약국 현장 4대 핵심 애로사항 요약',
-                    imageUrl: 'https://daily-pharma.vercel.app/og-image.png',
-                    link: {
-                        mobileWebUrl: window.location.href,
-                        webUrl: window.location.href,
-                    },
-                },
-                buttons: [
-                    {
-                        title: '웹앱에서 자세히 보기 ➔',
+    async function shareKakaoTable() {
+        if (!window.Kakao) {
+            alert("카카오 SDK 로드 실패");
+            return;
+        }
+
+        const tableElement = document.getElementById('compare-table-area');
+        if (!tableElement) {
+            alert("표 영역을 찾을 수 없습니다.");
+            return;
+        }
+
+        try {
+            // 1. 표 영역을 이미지(Canvas)로 캡처
+            const canvas = await html2canvas(tableElement, {
+                scale: 2, // 고해상도 캡처
+                backgroundColor: "#ffffff"
+            });
+
+            // 2. 캡처된 이미지를 Blob 형태로 변환
+            canvas.toBlob(async function(blob) {
+                const file = new File([blob], 'table.png', { type: 'image/png' });
+
+                // 3. 카카오 서버에 캡처 이미지 임시 업로드
+                const uploadRes = await window.Kakao.Share.uploadImage({
+                    file: [file]
+                });
+
+                const imageUrl = uploadRes.infos.original.url;
+                const shareUrl = 'https://daily-pharma.vercel.app';
+
+                // 4. 캡처된 표 이미지로 카톡 카드 전송
+                window.Kakao.Share.sendDefault({
+                    objectType: 'feed',
+                    content: {
+                        title: '오늘의 약학계 이슈',
+                        description: '📊 비대면진료 약국 현장 4대 핵심 애로사항 요약',
+                        imageUrl: imageUrl, // 👈 방금 캡처한 표 이미지가 들어갑니다!
+                        imageWidth: canvas.width,
+                        imageHeight: canvas.height,
                         link: {
-                            mobileWebUrl: window.location.href,
-                            webUrl: window.location.href,
+                            mobileWebUrl: shareUrl,
+                            webUrl: shareUrl,
                         },
                     },
-                ],
+                    buttons: [
+                        {
+                            title: '웹앱에서 자세히 보기 ➔',
+                            link: {
+                                mobileWebUrl: shareUrl,
+                                webUrl: shareUrl,
+                            },
+                        },
+                    ],
+                });
             });
+        } catch (error) {
+            console.error("표 이미지 변환 및 공유 실패:", error);
+            alert("표 공유 중 오류가 발생했습니다.");
         }
-    </script>
+    }
+</script>
 
 </body>
 </html>

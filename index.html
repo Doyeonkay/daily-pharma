@@ -7,7 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     
-    <!-- 카카오톡 공유 최신 SDK v2 -->
+    <!-- 최신 카카오 SDK v2 공식 주소로 교체 -->
     <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js" integrity="sha384-TiGlAyd07R0jaXtflj4yUXA535YfjiUfJxaM51fU7AmvgEw522xA9L6B9N3f0R13" crossorigin="anonymous"></script>
     
     <!-- HTML 표를 이미지로 캡처해 주는 라이브러리 -->
@@ -190,22 +190,21 @@
 
     <!-- 자바스크립트 코드 -->
     <script>
-        // 카카오 SDK 초기화 함수 (필요 시 자동 실행)
-        function initKakao() {
-            if (window.Kakao && !window.Kakao.isInitialized()) {
-                window.Kakao.init('fe0d07998c40e155fe9129b0d32793fa');
+        // 초기화 보장 함수
+        function ensureKakaoInit() {
+            if (window.Kakao) {
+                if (!window.Kakao.isInitialized()) {
+                    window.Kakao.init('fe0d07998c40e155fe9129b0d32793fa');
+                }
+                return true;
             }
+            return false;
         }
 
-        // 페이지 로드 시 1차 초기화
-        initKakao();
-
         async function shareKakaoTable() {
-            // 버튼 클릭 시점에 2차 초기화 점검 (안전장치)
-            initKakao();
-
-            if (!window.Kakao || !window.Kakao.isInitialized()) {
-                alert("카카오 SDK를 연결하지 못했습니다. 페이지를 새로고침 후 다시 시도해주세요.");
+            // 버튼 클릭 순간 100% 초기화 강제 수행
+            if (!ensureKakaoInit()) {
+                alert("카카오 SDK 로드에 실패했습니다. 인터넷 연결 및 스크립트를 확인해 주세요.");
                 return;
             }
 
@@ -223,17 +222,17 @@
                     useCORS: true
                 });
 
-                // 2. 캔버스를 Blob으로 변환
+                // 2. 캔버스를 Blob으로 변환 후 파일 생성
                 canvas.toBlob(async function(blob) {
                     if (!blob) {
-                        alert("이미지 생성에 실패했습니다.");
+                        alert("표 이미지 생성에 실패했습니다.");
                         return;
                     }
 
                     const file = new File([blob], 'table.png', { type: 'image/png' });
 
                     try {
-                        // 3. 카카오 서버에 캡처 파일 업로드
+                        // 3. 카카오 서버에 이미지 업로드
                         const res = await window.Kakao.Share.uploadImage({
                             file: [file]
                         });
@@ -241,7 +240,7 @@
                         const imageUrl = res.infos.original.url;
                         const shareUrl = 'https://daily-pharma.vercel.app';
 
-                        // 4. 업로드된 표 이미지 URL을 카드 상단에 적용하여 전송
+                        // 4. 업로드된 표 이미지가 상단에 박힌 메시지 카드 전송
                         window.Kakao.Share.sendDefault({
                             objectType: 'feed',
                             content: {
@@ -277,9 +276,6 @@
             }
         }
     </script>
-
-</body>
-</html>
 
 </body>
 </html>

@@ -6,8 +6,13 @@
     <title>Daily Pharma Digest</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <!-- 카카오톡 공유 SDK -->
-    <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
+    
+    <!-- 카카오톡 공유 최신 SDK v2 -->
+    <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js" integrity="sha384-TiGlAyd07R0jaXtflj4yUXA535YfjiUfJxaM51fU7AmvgEw522xA9L6B9N3f0R13" crossorigin="anonymous"></script>
+    
+    <!-- HTML 표를 이미지로 캡처해 주는 라이브러리 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
     <style>
         @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
         body { font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif; background-color: #f8fafc; }
@@ -16,8 +21,6 @@
         .compare-table th, .compare-table td { border: 1px solid #e2e8f0; padding: 12px; }
         .compare-table th { background-color: #f1f5f9; font-weight: 700; color: #1e293b; text-align: center; }
     </style>
-    <!-- HTML 표를 이미지로 캡처해 주는 라이브러리 -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased min-h-screen pb-12">
 
@@ -98,7 +101,7 @@
                 </ul>
             </div>
 
-            <!-- 현장 고충 이슈 비교 표 (정리된 구역) -->
+            <!-- 현장 고충 이슈 비교 표 -->
             <section class="p-6 md:p-8 border-b border-slate-100">
                 <h3 class="text-md font-bold text-slate-900 mb-4 flex items-center">
                     <i class="fa-solid fa-triangle-exclamation text-amber-600 mr-2"></i> 📊 비대면진료 약국 현장 4대 핵심 애로사항
@@ -167,7 +170,7 @@
                 </div>
             </div>
 
-            <!-- Action Section: 복구된 하단 카카오톡 공유 버튼 -->
+            <!-- Action Section: 하단 카카오톡 공유 버튼 -->
             <div class="p-6 md:p-8 bg-amber-50/40 text-center">
                 <h3 class="text-sm font-bold text-slate-900 mb-2">📲 동기들과 공유하기</h3>
                 <p class="text-xs text-slate-500 mb-4">버튼을 누르면 핵심 비교 표와 함께 웹앱 링크가 카카오톡으로 전송됩니다.</p>
@@ -180,81 +183,96 @@
 
     </main>
 
-    <!-- Footer 복구 -->
+    <!-- Footer -->
     <footer class="max-w-3xl mx-auto px-4 mt-8 text-center text-xs text-slate-400">
         &copy; 2026 Daily Pharma Digest. All rights reserved.
     </footer>
 
     <!-- 자바스크립트 코드 -->
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        if (window.Kakao && !window.Kakao.isInitialized()) {
-            window.Kakao.init('fe0d07998c40e155fe9129b0d32793fa');
-        }
-    });
+        document.addEventListener('DOMContentLoaded', function() {
+            if (window.Kakao && !window.Kakao.isInitialized()) {
+                window.Kakao.init('fe0d07998c40e155fe9129b0d32793fa');
+            }
+        });
 
-    async function shareKakaoTable() {
-        if (!window.Kakao) {
-            alert("카카오 SDK 로드 실패");
-            return;
-        }
+        async function shareKakaoTable() {
+            if (!window.Kakao || !window.Kakao.isInitialized()) {
+                alert("카카오 SDK가 초기화되지 않았습니다.");
+                return;
+            }
 
-        const tableElement = document.getElementById('compare-table-area');
-        if (!tableElement) {
-            alert("표 영역을 찾을 수 없습니다.");
-            return;
-        }
+            const tableElement = document.getElementById('compare-table-area');
+            if (!tableElement) {
+                alert("표 영역을 찾을 수 없습니다.");
+                return;
+            }
 
-        try {
-            // 1. 표 영역을 이미지(Canvas)로 캡처
-            const canvas = await html2canvas(tableElement, {
-                scale: 2, // 고해상도 캡처
-                backgroundColor: "#ffffff"
-            });
-
-            // 2. 캡처된 이미지를 Blob 형태로 변환
-            canvas.toBlob(async function(blob) {
-                const file = new File([blob], 'table.png', { type: 'image/png' });
-
-                // 3. 카카오 서버에 캡처 이미지 임시 업로드
-                const uploadRes = await window.Kakao.Share.uploadImage({
-                    file: [file]
+            try {
+                // 1. html2canvas로 표 영역 고해상도 캡처
+                const canvas = await html2canvas(tableElement, {
+                    scale: 2,
+                    backgroundColor: "#ffffff",
+                    useCORS: true
                 });
 
-                const imageUrl = uploadRes.infos.original.url;
-                const shareUrl = 'https://daily-pharma.vercel.app';
+                // 2. 캔버스를 Blob으로 변환
+                canvas.toBlob(async function(blob) {
+                    if (!blob) {
+                        alert("이미지 생성에 실패했습니다.");
+                        return;
+                    }
 
-                // 4. 캡처된 표 이미지로 카톡 카드 전송
-                window.Kakao.Share.sendDefault({
-                    objectType: 'feed',
-                    content: {
-                        title: '오늘의 약학계 이슈',
-                        description: '📊 비대면진료 약국 현장 4대 핵심 애로사항 요약',
-                        imageUrl: imageUrl, // 👈 방금 캡처한 표 이미지가 들어갑니다!
-                        imageWidth: canvas.width,
-                        imageHeight: canvas.height,
-                        link: {
-                            mobileWebUrl: shareUrl,
-                            webUrl: shareUrl,
-                        },
-                    },
-                    buttons: [
-                        {
-                            title: '웹앱에서 자세히 보기 ➔',
-                            link: {
-                                mobileWebUrl: shareUrl,
-                                webUrl: shareUrl,
+                    const file = new File([blob], 'table.png', { type: 'image/png' });
+
+                    try {
+                        // 3. 카카오 서버에 캡처 파일 업로드 (v2 SDK 표준)
+                        const res = await window.Kakao.Share.uploadImage({
+                            file: [file]
+                        });
+
+                        const imageUrl = res.infos.original.url;
+                        const shareUrl = 'https://daily-pharma.vercel.app';
+
+                        // 4. 업로드된 표 이미지 URL을 카드 상단에 적용하여 전송
+                        window.Kakao.Share.sendDefault({
+                            objectType: 'feed',
+                            content: {
+                                title: '오늘의 약학계 이슈',
+                                description: '📊 비대면진료 약국 현장 4대 핵심 애로사항 요약',
+                                imageUrl: imageUrl,
+                                imageWidth: canvas.width,
+                                imageHeight: canvas.height,
+                                link: {
+                                    mobileWebUrl: shareUrl,
+                                    webUrl: shareUrl,
+                                },
                             },
-                        },
-                    ],
-                });
-            });
-        } catch (error) {
-            console.error("표 이미지 변환 및 공유 실패:", error);
-            alert("표 공유 중 오류가 발생했습니다.");
+                            buttons: [
+                                {
+                                    title: '웹앱에서 자세히 보기 ➔',
+                                    link: {
+                                        mobileWebUrl: shareUrl,
+                                        webUrl: shareUrl,
+                                    },
+                                },
+                            ],
+                        });
+                    } catch (uploadError) {
+                        console.error("카카오 이미지 업로드 에러:", uploadError);
+                        alert("카카오 서버로 표 이미지를 전송하는 데 실패했습니다.");
+                    }
+                }, 'image/png');
+
+            } catch (error) {
+                console.error("표 캡처 에러:", error);
+                alert("표 캡처 처리 중 에러가 발생했습니다.");
+            }
         }
-    }
-</script>
+    </script>
+
+</body>
+</html>
 
 </body>
 </html>

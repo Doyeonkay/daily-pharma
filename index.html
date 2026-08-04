@@ -195,6 +195,29 @@
                 alert("복사에 실패했습니다.");
             });
         }
+        <script>
+    function copyTableAsImage() {
+        const tableElement = document.getElementById('compare-table-area');
+        
+        html2canvas(tableElement, { scale: 2 }).then(canvas => {
+            canvas.toBlob(blob => {
+                try {
+                    const item = new ClipboardItem({ "image/png": blob });
+                    navigator.clipboard.write([item]).then(() => {
+                        alert("표가 이미지로 클립보드에 복사되었습니다!\n카카오톡 채팅창에 붙여넣기(Ctrl+V) 하세요.");
+                    });
+                } catch (err) {
+                    // 모바일 등 이미지 복사 미지원 브라우저 대응
+                    alert("이 브라우저에서는 이미지 바로 복사를 지원하지 않아 다운로드합니다.");
+                    const link = document.createElement('a');
+                    link.download = 'daily-pharma-table.png';
+                    link.href = canvas.toDataURL();
+                    link.click();
+                }
+            });
+        });
+    }
+</script>
     </script>
 
 </body>

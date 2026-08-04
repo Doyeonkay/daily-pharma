@@ -6,17 +6,18 @@
     <title>Daily Pharma Digest</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- 카카오톡 공유 SDK -->
+    <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
     <style>
         @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
         body { font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif; background-color: #f8fafc; }
+        
         .compare-table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
         .compare-table th, .compare-table td { border: 1px solid #e2e8f0; padding: 12px; }
         .compare-table th { background-color: #f1f5f9; font-weight: 700; color: #1e293b; text-align: center; }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased min-h-screen pb-12">
-    <!-- 카카오톡 공유 SDK -->
-<script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
 
     <!-- Header -->
     <header class="bg-slate-900 text-white border-b border-slate-800 sticky top-0 z-50">
@@ -95,47 +96,47 @@
                 </ul>
             </div>
 
-   <!-- 현장 고충 이슈 비교 표 -->
-<section class="p-6 md:p-8 border-b border-slate-100">
-    <h3 class="text-md font-bold text-slate-900 mb-4 flex items-center">
-        <i class="fa-solid fa-triangle-exclamation text-amber-600 mr-2"></i> 📊 비대면진료 약국 현장 4대 핵심 애로사항
-    </h3>
+            <!-- 현장 고충 이슈 비교 표 (정리된 구역) -->
+            <section class="p-6 md:p-8 border-b border-slate-100">
+                <h3 class="text-md font-bold text-slate-900 mb-4 flex items-center">
+                    <i class="fa-solid fa-triangle-exclamation text-amber-600 mr-2"></i> 📊 비대면진료 약국 현장 4대 핵심 애로사항
+                </h3>
 
-    <!-- 카카오톡 공유용 ID 적용된 표 영역 -->
-    <div id="compare-table-area" class="bg-white p-3 rounded-xl border border-slate-200 overflow-x-auto shadow-sm">
-        <table class="compare-table">
-            <thead>
-                <tr>
-                    <th class="w-1/4">구분</th>
-                    <th class="w-3/8 bg-red-50 text-red-900 border-red-100">현장의 실태 (Problem)</th>
-                    <th class="w-3/8 bg-blue-50 text-blue-900 border-blue-100">개선 필요 과제 (Solution)</th>
-                </tr>
-            </thead>
-            <tbody class="text-xs leading-relaxed">
-                <tr>
-                    <td class="font-bold text-slate-800 text-center">전달 방식</td>
-                    <td class="bg-red-50/30 text-red-700">희미한 팩스 처방전 수신으로 식별 오류 위험 발생</td>
-                    <td class="bg-blue-50/30 text-blue-700">DUR 연계 공공 표준 전자처방전 도입</td>
-                </tr>
-                <tr>
-                    <td class="font-bold text-slate-800 text-center">대체조제 소통</td>
-                    <td class="bg-red-50/30 text-red-700">의원과 전화 연결 불통으로 처방 변경/조율 불가능</td>
-                    <td class="bg-blue-50/30 text-blue-700">대체조제 간소화 및 실시간 소통 채널 구축</td>
-                </tr>
-                <tr>
-                    <td class="font-bold text-slate-800 text-center">약국 재고</td>
-                    <td class="bg-red-50/30 text-red-700">예측 불가능한 비대면 처방약으로 사재기/폐기 부담</td>
-                    <td class="bg-blue-50/30 text-blue-700">처방 의약품 수급 정보 공유 및 지역 단위 관리</td>
-                </tr>
-                <tr>
-                    <td class="font-bold text-slate-800 text-center">플랫폼 폐해</td>
-                    <td class="bg-red-50/30 text-red-700">민간 플랫폼의 특정 약국 쏠림 유도 및 불법 환자 유인</td>
-                    <td class="bg-blue-50/30 text-blue-700">플랫폼 가이드라인 법제화 및 정부 관리감독 강화</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</section>
+                <!-- 카카오톡 공유용 ID 적용된 표 영역 -->
+                <div id="compare-table-area" class="bg-white p-3 rounded-xl border border-slate-200 overflow-x-auto shadow-sm">
+                    <table class="compare-table">
+                        <thead>
+                            <tr>
+                                <th class="w-1/4">구분</th>
+                                <th class="w-3/8 bg-red-50 text-red-900 border-red-100">현장의 실태 (Problem)</th>
+                                <th class="w-3/8 bg-blue-50 text-blue-900 border-blue-100">개선 필요 과제 (Solution)</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-xs leading-relaxed">
+                            <tr>
+                                <td class="font-bold text-slate-800 text-center">전달 방식</td>
+                                <td class="bg-red-50/30 text-red-700">희미한 팩스 처방전 수신으로 식별 오류 위험 발생</td>
+                                <td class="bg-blue-50/30 text-blue-700">DUR 연계 공공 표준 전자처방전 도입</td>
+                            </tr>
+                            <tr>
+                                <td class="font-bold text-slate-800 text-center">대체조제 소통</td>
+                                <td class="bg-red-50/30 text-red-700">의원과 전화 연결 불통으로 처방 변경/조율 불가능</td>
+                                <td class="bg-blue-50/30 text-blue-700">대체조제 간소화 및 실시간 소통 채널 구축</td>
+                            </tr>
+                            <tr>
+                                <td class="font-bold text-slate-800 text-center">약국 재고</td>
+                                <td class="bg-red-50/30 text-red-700">예측 불가능한 비대면 처방약으로 사재기/폐기 부담</td>
+                                <td class="bg-blue-50/30 text-blue-700">처방 의약품 수급 정보 공유 및 지역 단위 관리</td>
+                            </tr>
+                            <tr>
+                                <td class="font-bold text-slate-800 text-center">플랫폼 폐해</td>
+                                <td class="bg-red-50/30 text-red-700">민간 플랫폼의 특정 약국 쏠림 유도 및 불법 환자 유인</td>
+                                <td class="bg-blue-50/30 text-blue-700">플랫폼 가이드라인 법제화 및 정부 관리감독 강화</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
 
             <!-- Key Term Explanations -->
             <div class="p-6 md:p-8 space-y-4 border-b border-slate-100">
@@ -164,34 +165,53 @@
                 </div>
             </div>
 
-<script>
-    // 복사한 JavaScript 키를 아래 ' ' 안에 붙여넣으세요 (예: 'a1b2c3d4e5...')
-    Kakao.init('3867c7eb40cb608374643a5c65784f47');
+            <!-- Action Section: 복구된 하단 카카오톡 공유 버튼 -->
+            <div class="p-6 md:p-8 bg-amber-50/40 text-center">
+                <h3 class="text-sm font-bold text-slate-900 mb-2">📲 동기들과 공유하기</h3>
+                <p class="text-xs text-slate-500 mb-4">버튼을 누르면 핵심 비교 표와 함께 웹앱 링크가 카카오톡으로 전송됩니다.</p>
+                <button onclick="shareKakaoTable()" class="bg-yellow-400 hover:bg-yellow-500 text-slate-900 font-bold text-xs py-2.5 px-5 rounded-xl shadow-sm transition inline-flex items-center">
+                    <i class="fa-solid fa-comment mr-2 text-slate-900"></i> 카카오톡으로 표 요약 전송하기
+                </button>
+            </div>
+            
+        </article>
 
-    function shareKakaoTable() {
-        Kakao.Share.sendDefault({
-            objectType: 'feed',
-            content: {
-                title: '📊 비대면진료 약국 현장 4대 핵심 애로사항 요약',
-                description: '대체조제 소통 단절, 팩스 처방, 재고 부담 등 핵심 이슈 정리',
-                imageUrl: 'https://daily-pharma.vercel.app/og-image.png',
-                link: {
-                    mobileWebUrl: window.location.href,
-                    webUrl: window.location.href,
-                },
-            },
-            buttons: [
-                {
-                    title: '웹앱에서 자세히 보기 ➔',
+    </main>
+
+    <!-- Footer 복구 -->
+    <footer class="max-w-3xl mx-auto px-4 mt-8 text-center text-xs text-slate-400">
+        &copy; 2026 Daily Pharma Digest. All rights reserved.
+    </footer>
+
+    <!-- 자바스크립트 코드 -->
+    <script>
+        // 발급받으신 JavaScript 키를 정상 적용했습니다.
+        Kakao.init('3867c7eb40cb608374643a5c65784f47');
+
+        function shareKakaoTable() {
+            Kakao.Share.sendDefault({
+                objectType: 'feed',
+                content: {
+                    title: '📊 비대면진료 약국 현장 4대 핵심 애로사항 요약',
+                    description: '• 팩스 처방전 식별 오류\n• 대체조제 소통 단절\n• 약국 재고 부담\n• 플랫폼 불법 유인',
+                    imageUrl: 'https://daily-pharma.vercel.app/og-image.png',
                     link: {
                         mobileWebUrl: window.location.href,
                         webUrl: window.location.href,
                     },
                 },
-            ],
-        });
-    }
-</script>
+                buttons: [
+                    {
+                        title: '웹앱에서 자세히 보기 ➔',
+                        link: {
+                            mobileWebUrl: window.location.href,
+                            webUrl: window.location.href,
+                        },
+                    },
+                ],
+            });
+        }
+    </script>
 
 </body>
 </html>

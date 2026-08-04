@@ -185,8 +185,12 @@
 
     <!-- 자바스크립트 코드 -->
     <script>
-        // 발급받으신 JavaScript 키를 정상 적용했습니다.
-        Kakao.init('3867c7eb40cb608374643a5c65784f47');
+    document.addEventListener('DOMContentLoaded', function() {
+        if (window.Kakao && !window.Kakao.isInitialized()) {
+            // 👇 새로 도메인이 연결된 새 키 값으로 변경!
+            window.Kakao.init('fe0d07998c40e155fe9129b0d32793fa');
+        }
+    });
 
         function shareKakaoTable() {
             Kakao.Share.sendDefault({

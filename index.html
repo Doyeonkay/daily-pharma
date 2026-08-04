@@ -93,13 +93,20 @@
                 </ul>
             </div>
 
-            <!-- 현장 고충 이슈 비교 표 -->
+           <!-- 현장 고충 이슈 비교 표 -->
             <div class="p-6 md:p-8 border-b border-slate-100">
-                <h3 class="text-md font-bold text-slate-900 mb-4 flex items-center">
-                    <i class="fa-solid fa-triangle-exclamation text-amber-600 mr-2"></i> 📊 비대면진료 약국 현장 4대 핵심 애로사항
-                </h3>
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-md font-bold text-slate-900 flex items-center">
+                        <i class="fa-solid fa-triangle-exclamation text-amber-600 mr-2"></i> 📊 비대면진료 약국 현장 4대 핵심 애로사항
+                    </h3>
+                    <!-- 표 이미지 복사 버튼 -->
+                    <button onclick="copyTableAsImage()" class="bg-amber-100 hover:bg-amber-200 text-amber-900 font-bold text-xs py-1.5 px-3 rounded-lg border border-amber-200 transition flex items-center">
+                        <i class="fa-solid fa-image mr-1.5"></i> 표 이미지 복사
+                    </button>
+                </div>
 
-                <div class="bg-white rounded-xl border border-slate-200 overflow-x-auto shadow-sm">
+                <!-- 캡처될 표 영역 -->
+                <div id="compare-table-area" class="bg-white p-3 rounded-xl border border-slate-200 overflow-x-auto shadow-sm">
                     <table class="compare-table">
                         <thead>
                             <tr>

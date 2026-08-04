@@ -8,8 +8,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
-        body { font-family: 'Pretendard', sans-serif; background-color: #f8fafc; }
-        
+        body { font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif; background-color: #f8fafc; }
         .compare-table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
         .compare-table th, .compare-table td { border: 1px solid #e2e8f0; padding: 12px; }
         .compare-table th { background-color: #f1f5f9; font-weight: 700; color: #1e293b; text-align: center; }
@@ -39,28 +38,31 @@
     <main class="max-w-3xl mx-auto px-4 mt-6 space-y-6">
 
         <!-- Banner Notice -->
-        <div class="bg-blue-50 border border-blue-200 rounded-xl p-4 flex items-start space-x-3">
-            <i class="fa-solid fa-circle-info text-blue-600 text-lg mt-0.5"></i>
-            <div class="text-sm text-blue-900">
-                <strong>오늘의 이슈 브리핑:</strong> 코로나19 재유행에 따라 자가진단키트 및 치료제 수급 불안정이 우려되자, 대한약사회가 국회에 공적 마스크 공급 및 방역 대책 마련을 촉구했습니다.
+        <div class="bg-amber-50 border border-amber-200 rounded-xl p-4 flex items-start space-x-3">
+            <i class="fa-solid fa-file-medical text-amber-600 text-lg mt-0.5"></i>
+            <div class="text-sm text-amber-900">
+                <strong>오늘의 현장 보고서:</strong> 한국보건의료연구원(NECA)의 비대면진료 시범사업 영향평가 보고서가 공개되었습니다. 대체조제 소통 부재와 아날로그 팩스 처방전 문제 등 현장 약사들의 고충이 드러났습니다.
             </div>
         </div>
 
-        <!-- Article Header (Article Card 내부) -->
-        <div class="p-6 md:p-8 border-b border-slate-100">
-            <div class="flex items-center space-x-2 text-xs font-semibold text-blue-600 mb-3">
-                <span class="bg-blue-50 px-2.5 py-1 rounded-md border border-blue-100">약학 정책·보건</span>
-                <span class="text-slate-400">•</span>
-                <span class="text-slate-500">읽는 시간: 약 3분</span>
+        <!-- Article Card -->
+        <article class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+            <!-- Article Header -->
+            <div class="p-6 md:p-8 border-b border-slate-100">
+                <div class="flex items-center space-x-2 text-xs font-semibold text-blue-600 mb-3">
+                    <span class="bg-blue-50 px-2.5 py-1 rounded-md border border-blue-100">경영·비대면진료</span>
+                    <span class="text-slate-400">•</span>
+                    <span class="text-slate-500">읽는 시간: 약 3분</span>
+                </div>
+                <h2 class="text-2xl md:text-3xl font-bold text-slate-900 leading-snug">
+                    비대면진료 약사들 "대체조제 소통 막히고, 팩스 처방은 여전"
+                </h2>
+                <p class="text-xs text-slate-500 mt-2">한국보건의료연구원, 비대면진료 시범사업 영향평가 보고서 발간… 재고 부담·수가체계·유인행위 개선 과제</p>
+                <div class="mt-4 flex items-center justify-between text-xs text-slate-500 pt-4 border-t border-slate-100">
+                    <div>출처: 약사공론 (경영 섹션)</div>
+                    <div>발행일: 2026년 8월 4일</div>
+                </div>
             </div>
-            <h2 class="text-2xl md:text-3xl font-bold text-slate-900 leading-snug">
-                코로나 재유행에 '공적 마스크' 재등장하나… 약사회, 국회에 대책 촉구
-            </h2>
-            <div class="mt-4 flex items-center justify-between text-xs text-slate-500 pt-4 border-t border-slate-100">
-                <div>출처: 약사공론 (기사번호 539645)</div>
-                <div>발행일: 2026년 8월 4일</div>
-            </div>
-        </div>
 
             <!-- 5-Line Summary -->
             <div class="bg-slate-50 p-6 border-b border-slate-100">
@@ -70,31 +72,31 @@
                 <ul class="space-y-3 text-sm text-slate-700">
                     <li class="flex items-start">
                         <span class="bg-blue-600 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs mr-3 flex-shrink-0 mt-0.5">1</span>
-                        <span><strong>공적 마스크 제고 요청:</strong> 대한약사회 및 전국 시도약사회가 국회에 코로나19 재유행에 따른 공적 마스크 공급 및 방역 대책 마련을 강력히 촉구했습니다.</span>
+                        <span><strong>영향평가 보고서 발간:</strong> 한국보건의료연구원이 비대면진료 시범사업 심층면접 및 현장 실태 분석 보고서를 발표했습니다.</span>
                     </li>
                     <li class="flex items-start">
                         <span class="bg-blue-600 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs mr-3 flex-shrink-0 mt-0.5">2</span>
-                        <span><strong>진단키트·자가치료제 품귀:</strong> 최근 확진자 급증으로 약국 현장에서 자가진단키트와 치료제 수급 불균형 및 가격 상승 우려가 커지고 있습니다.</span>
+                        <span><strong>대체조제 소통 단절:</strong> 처방 의약품 재고가 없을 때 처방 의사와 연락이 닿지 않아 대체조제 사후통보 및 처방 변경에 큰 어려움을 겪고 있습니다.</span>
                     </li>
                     <li class="flex items-start">
                         <span class="bg-blue-600 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs mr-3 flex-shrink-0 mt-0.5">3</span>
-                        <span><strong>정부 차원의 수급 조절 필요:</strong> 약사회는 민간 유통망에만 의존할 경우 수급 불안정이 심화되므로 정부가 직접 공적 물량을 확보해야 한다고 주장했습니다.</span>
+                        <span><strong>아날로그 팩스 문제:</strong> 전자의무기록 표준화 미비로 해상도가 낮은 팩스 처방전 전송이 지속되어 판독 오류 및 조제 위험이 존재합니다.</span>
                     </li>
                     <li class="flex items-start">
                         <span class="bg-blue-600 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs mr-3 flex-shrink-0 mt-0.5">4</span>
-                        <span><strong>국회 보건복지위 전달:</strong> 관련 건의서가 국회 보건복지위원회 소속 의원들에게 전달되어 긴급 안건 논의를 요청한 상태입니다.</span>
+                        <span><strong>재고 부담 & 유인행위:</strong> 다양한 비대면 처방약 비축에 따른 재고 부담과 함께, 일부 민간 플랫폼의 환자 유인 및 불법 마케팅 방지가 과제로 지적됐습니다.</span>
                     </li>
                     <li class="flex items-start">
                         <span class="bg-blue-600 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs mr-3 flex-shrink-0 mt-0.5">5</span>
-                        <span><strong>약국의 안정적 공급망 확보:</strong> 국민들이 불편 없이 방역 용품과 치료제를 구입할 수 있도록 약국 중심의 공급선 일원화를 강조했습니다.</span>
+                        <span><strong>수가 및 제도 개선 촉구:</strong> 약사회 및 보건의료계는 전자처방전 전달 시스템 구축, 수가 체계 정비, 약국 조제 환경 안전성 확보를 제도 개선 우선순위로 꼽았습니다.</span>
                     </li>
                 </ul>
             </div>
 
-            <!-- 데이터/이슈 시각화 섹션 (수급 현황 및 약사회 요구사항) -->
+            <!-- 현장 고충 이슈 비교 표 -->
             <div class="p-6 md:p-8 border-b border-slate-100">
                 <h3 class="text-md font-bold text-slate-900 mb-4 flex items-center">
-                    <i class="fa-solid fa-right-left text-blue-600 mr-2"></i> 📊 코로나 방역용품 현장 실태 vs 약사회 건의안 비교
+                    <i class="fa-solid fa-triangle-exclamation text-amber-600 mr-2"></i> 📊 비대면진료 약국 현장 4대 핵심 애로사항
                 </h3>
 
                 <div class="bg-white rounded-xl border border-slate-200 overflow-x-auto shadow-sm">
@@ -102,30 +104,36 @@
                         <thead>
                             <tr>
                                 <th class="w-1/4">구분</th>
-                                <th class="w-3/8 bg-red-50 text-red-900 border-red-100">약국 현장 실태 (Problem)</th>
-                                <th class="w-3/8 bg-blue-50 text-blue-900 border-blue-100">약사회 건의 내용 (Solution)</th>
+                                <th class="w-3/8 bg-red-50 text-red-900 border-red-100">현장의 실태 (Problem)</th>
+                                <th class="w-3/8 bg-blue-50 text-blue-900 border-blue-100">개선 필요 과제 (Solution)</th>
                             </tr>
                         </thead>
                         <tbody class="text-xs leading-relaxed">
                             <tr>
-                                <td class="font-bold text-slate-800 text-center">자가진단키트</td>
-                                <td class="bg-red-50/30 text-red-700">도매상 입고 지연 및 일시적 품귀 현상 발생</td>
-                                <td class="bg-blue-50/30 text-blue-700">제조사 생산량 증대 및 약국 우선 배정 요청</td>
+                                <td class="font-bold text-slate-800 text-center">전달 방식</td>
+                                <td class="bg-red-50/30 text-red-700">희미한 팩스 처방전 수신으로 식별 오류 위험 발생</td>
+                                <td class="bg-blue-50/30 text-blue-700">DUR 연계 공공 표준 전자처방전 도입</td>
                             </tr>
                             <tr>
-                                <td class="font-bold text-slate-800 text-center">공적 방역 물량</td>
-                                <td class="bg-red-50/30 text-red-700">민간 유통 전환으로 인한 수급 및 가격 변동성 확대</td>
-                                <td class="bg-blue-50/30 text-blue-700">정부 차원의 공적 마스크 및 방역물품 비축재개 건의</td>
+                                <td class="font-bold text-slate-800 text-center">대체조제 소통</td>
+                                <td class="bg-red-50/30 text-red-700">의원과 전화 연결 불통으로 처방 변경/조율 불가능</td>
+                                <td class="bg-blue-50/30 text-blue-700">대체조제 간소화 및 실시간 소통 채널 구축</td>
                             </tr>
                             <tr>
-                                <td class="font-bold text-slate-800 text-center">치료제 공급망</td>
-                                <td class="bg-red-50/30 text-red-700">일부 지정약국 수급 불균형으로 환자 불편 가중</td>
-                                <td class="bg-blue-50/30 text-blue-700">먹는 치료제 거점약국 확대 및 공급 절차 간소화</td>
+                                <td class="font-bold text-slate-800 text-center">약국 재고</td>
+                                <td class="bg-red-50/30 text-red-700">예측 불가능한 비대면 처방약으로 사재기/폐기 부담</td>
+                                <td class="bg-blue-50/30 text-blue-700">처방 의약품 수급 정보 공유 및 지역 단위 관리</td>
+                            </tr>
+                            <tr>
+                                <td class="font-bold text-slate-800 text-center">플랫폼 폐해</td>
+                                <td class="bg-red-50/30 text-red-700">민간 플랫폼의 특정 약국 쏠림 유도 및 불법 환자 유인</td>
+                                <td class="bg-blue-50/30 text-blue-700">플랫폼 가이드라인 법제화 및 정부 관리감독 강화</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
+
             <!-- Key Term Explanations -->
             <div class="p-6 md:p-8 space-y-4 border-b border-slate-100">
                 <h3 class="text-md font-bold text-slate-900 flex items-center">
@@ -133,21 +141,21 @@
                 </h3>
                 <div class="space-y-3">
                     <div class="p-4 bg-white border border-slate-200 rounded-xl">
-                        <div class="font-bold text-sm text-slate-900 mb-1">1. 의약품 무상 공급 & 약사법 이슈</div>
+                        <div class="font-bold text-sm text-slate-900 mb-1">1. 대체조제 및 사후통보 (약사법 제27조)</div>
                         <p class="text-xs text-slate-600 leading-relaxed">
-                            제약사나 플랫폼이 환자/약국에 의약품을 무상 제공할 경우 약사법상 호객 행위, 환자 유인·알선 행위, 또는 리베이트 제공 금지 조항에 저촉될 위험이 있어 약국가에서 크게 반발하는 요소입니다.
+                            약사가 처방전에 기재된 의약품과 성분·함량·제형이 동일한 다른 품목으로 바꾸어 조제하는 행위입니다. 비대면 진료 시 의사와의 원활한 연락 불가로 현장 적용에 심각한 차질을 빚고 있습니다.
                         </p>
                     </div>
                     <div class="p-4 bg-white border border-slate-200 rounded-xl">
-                        <div class="font-bold text-sm text-slate-900 mb-1">2. 조제료 산정 및 세무 처리</div>
+                        <div class="font-bold text-sm text-slate-900 mb-1">2. 표준 전자처방전 (Electronic Prescription)</div>
                         <p class="text-xs text-slate-600 leading-relaxed">
-                            약국에서 무상으로 입고된 약제를 조제할 때, 건강보험 청구 시 약가 산정 방식과 기술료(조제료) 인정을 어떻게 할 것인지, 그리고 부가가치세 및 세무상 매입 자료 처리가 불투명해지는 행정적 문제입니다.
+                            종이나 팩스 대신 암호화된 데이터 형태로 의료기관에서 약국으로 전달되는 전산 처방전입니다. 위변조 방지 및 입력 오류를 줄이기 위한 필수 인프라로 꼽힙니다.
                         </p>
                     </div>
                     <div class="p-4 bg-white border border-slate-200 rounded-xl">
-                        <div class="font-bold text-sm text-slate-900 mb-1">3. 환자 지원 프로그램 (PSP, Patient Support Program)</div>
+                        <div class="font-bold text-sm text-slate-900 mb-1">3. 환자 유인·알선 행위 (약사법 제24조)</div>
                         <p class="text-xs text-slate-600 leading-relaxed">
-                            다국적 제약사들이 중증·희귀질환 환자의 치료 접근성과 복약 순응도를 높이기 위해 운영하는 지원 제도입니다. 플랫폼과 연계될 경우 유인 행위 논란과 치료 편의성 사이에서 상충하게 됩니다.
+                            특정 약국으로 환자를 유치하기 위해 경제적 이익을 제공하거나 플랫폼이 약국을 지정 및 알선하는 불법 행위로, 비대면 시범사업 중 주요 법적 쟁점입니다.
                         </p>
                     </div>
                 </div>
@@ -155,9 +163,9 @@
 
             <!-- Action Section: Kakao Copy Button -->
             <div class="p-6 md:p-8 bg-amber-50/40 text-center">
-                <h3 class="text-sm font-bold text-slate-900 mb-2">📲 약대생 동기들과 공유하기</h3>
+                <h3 class="text-sm font-bold text-slate-900 mb-2">📲 동기들과 공유하기</h3>
                 <p class="text-xs text-slate-500 mb-4">버튼을 누르면 카카오톡에 바로 붙여넣을 수 있는 요약 텍스트가 복사됩니다.</p>
-                <button onclick="copyForKakao()" class="bg-amber-400 hover:bg-amber-500 text-slate-900 font-bold text-xs py-2.5 px-5 rounded-xl shadow-sm transition inline-flex items-center">
+                <button onclick="copyForKakao()" class="bg-yellow-400 hover:bg-yellow-500 text-slate-900 font-bold text-xs py-2.5 px-5 rounded-xl shadow-sm transition inline-flex items-center">
                     <i class="fa-solid fa-comment mr-2 text-slate-900"></i> 카카오톡 전송용 요약 복사하기
                 </button>
             </div>
@@ -172,12 +180,12 @@
     <!-- 자바스크립트 코드 -->
     <script>
         function copyForKakao() {
-            const textToCopy = `[Daily Pharma Digest - 2026.08.04]\n\n하루 만에 바뀐 닥터나우 '무상약 공급' 약국 모집… 노바티스 "확정 아냐"\n\n핵심 내용:\n- 닥터나우, 무상약 공급 관련 약국 모집 설문 문구 하루 만에 수정\n- '한국노바티스' 지정 명시 삭제 및 '수요 파악 단계'로 톤 다운\n- 무상약 공급 시 조제료 산정, 세무 처리 및 약사법 위반 여부가 핵심 쟁점\n\n자세한 내용 보기:\nhttps://daily-pharma.vercel.app`;
+            const textToCopy = `[Daily Pharma Digest - 2026.08.04]\n\n비대면진료 약사들 "대체조제 소통 막히고, 팩스 처방은 여전"\n\n핵심 내용:\n- NECA 비대면진료 시범사업 영향평가 보고서 발간\n- 대체조제 시 의사 소통 부재 및 팩스 처방전 식별 오류 고충\n- 약국 재고 부담, 수가 체계, 민간 플랫폼 유인행위 개선 과제\n\n자세한 내용 보기:\nhttps://daily-pharma.vercel.app`;
             
             navigator.clipboard.writeText(textToCopy).then(() => {
                 alert("카카오톡에 붙여넣기 할 수 있도록 내용이 복사되었습니다!");
             }).catch(err => {
-                alert("복사에 실패했습니다. 직접 선택하여 복사해 주세요.");
+                alert("복사에 실패했습니다.");
             });
         }
     </script>
